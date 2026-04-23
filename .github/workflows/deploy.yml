@@ -19,12 +19,23 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           script_stop: true
           script: |
-            if [ ! -d "/root/GNA" ]; then
+            PROJECT_DIR="/root/GNA"
+            if [ ! -d "$PROJECT_DIR" ]; then
               mkdir -p /root
               cd /root
               git clone https://github.com/RGOLDVARG/GNA.git
             fi
-            cd /root/GNA
+            cd $PROJECT_DIR
             git pull origin main
+            
+            echo "Stopping existing containers..."
+            docker-compose down --remove-orphans
+            
+            echo "Building and starting containers..."
             docker-compose up -d --build
+            
+            echo "Checking container status..."
+            docker ps
+            
+            echo "Pruning system..."
             docker system prune -f
