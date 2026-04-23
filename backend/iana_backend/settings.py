@@ -27,7 +27,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-(9p+r1aef^4mj_w&4t+5f!&6ek
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = ['83.222.21.120', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['gnaglobal.org', 'www.gnaglobal.org', '83.222.21.120', 'localhost', '127.0.0.1']
 
 
 # Application definition
