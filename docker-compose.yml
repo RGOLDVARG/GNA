@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=iana_db
+      - POSTGRES_USER=iana_user
+      - POSTGRES_PASSWORD=iana_password
+    restart: always
+
+  backend:
+    build: ./backend
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py collectstatic --no-input &&
+             gunicorn --bind 0.0.0.0:8000 iana_backend.wsgi:application"
+    volumes:
+      - ./backend:/app
+      - backend_static:/app/static
+      - backend_media:/app/media
+    environment:
+      - DATABASE_NAME=iana_db
+      - DATABASE_USER=iana_user
+      - DATABASE_PASSWORD=iana_password
+      - DATABASE_HOST=db
+      - DATABASE_PORT=5432
+      - DEBUG=False
+      - SECRET_KEY=django-insecure-prod-key-change-this
+    depends_on:
+      - db
+    restart: always
+
+  frontend:
+    build: ./frontend
+    environment:
+      - NEXT_PUBLIC_API_URL=http://backend:8000
+    depends_on:
+      - backend
+    restart: always
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - backend_static:/app/backend/static
+      - backend_media:/app/backend/media
+    depends_on:
+      - frontend
+      - backend
+    restart: always
+
+volumes:
+  postgres_data:
+  backend_static:
+  backend_media:
