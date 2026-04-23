@@ -18,7 +18,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           password: ${{ secrets.SERVER_PASSWORD }}
           script: |
-            cd /app/GNA || (mkdir -p /app && cd /app && git clone https://github.com/RGOLDVARG/GNA.git && cd GNA)
+            cd /root/GNA || (mkdir -p /root && cd /root && git clone https://github.com/RGOLDVARG/GNA.git && cd GNA)
             git pull origin main
             docker-compose up -d --build
             docker system prune -f
