@@ -7,9 +7,10 @@ interface InquiryModalProps {
   onClose: () => void;
   type?: 'ACCREDITATION' | 'PARTNERSHIP' | 'MEMBERSHIP' | 'NEWSLETTER' | 'GENERAL';
   title?: string;
+  subject?: string;
 }
 
-export default function InquiryModal({ isOpen, onClose, type = 'GENERAL', title = 'Request Information' }: InquiryModalProps) {
+export default function InquiryModal({ isOpen, onClose, type = 'GENERAL', title = 'Request Information', subject }: InquiryModalProps) {
   const [formData, setFormData] = useState({
     full_name: '',
     email: '',
