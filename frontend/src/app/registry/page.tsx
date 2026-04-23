@@ -189,60 +189,111 @@ export default function RegistryPage() {
           <section style={{ padding: '60px 0 120px' }}>
             <div className="results-header">
               <h2 style={{ fontSize: '24px', fontWeight: 800, color: '#120A2B', margin: 0 }}>
-                {loading ? 'Consulting Registry...' : `Discoveries (${results.length})`}
+                {loading ? 'Consulting Registry...' : 'Verification Status'}
               </h2>
             </div>
 
             <div style={{ minHeight: '400px', position: 'relative' }}>
-              {!loading && results.length === 0 && (
-                <div className="empty-state">
-                  <Shield size={48} color="#CBD5E1" style={{ marginBottom: '20px' }} />
-                  <h3 style={{ fontSize: '22px', fontWeight: 800 }}>No Matching Records</h3>
-                </div>
-              )}
+              <div style={{
+                background: 'white',
+                borderRadius: '32px',
+                padding: '80px 40px',
+                textAlign: 'center',
+                border: '1px solid #E2E8F0',
+                boxShadow: '0 20px 50px rgba(0,0,0,0.03)',
+                position: 'relative',
+                overflow: 'hidden'
+              }}>
+                {/* Background Pattern */}
+                <div style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  opacity: 0.03,
+                  backgroundImage: 'radial-gradient(#3A0F7E 2px, transparent 2px)',
+                  backgroundSize: '32px 32px'
+                }} />
 
-              {!loading && results.length > 0 && (
-                <div className="results-grid">
-                  {results.map((spec: any) => (
-                    <div
-                      key={spec.id}
-                      className="spec-card"
-                      onClick={() => router.push(`/registry/${spec.gna_id}`)}
-                    >
-                      <div className="spec-card-top">
-                        <div className="spec-avatar-frame">
-                          {spec.avatar ? (
-                            <img src={spec.avatar} alt={spec.first_name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                          ) : (
-                            <UserIcon size={24} color="#3A0F7E" />
-                          )}
-                        </div>
-                        <div style={{ flex: 1 }}>
-                          <h4 className="spec-name">{spec.first_name} {spec.last_name}</h4>
-                          <div className="spec-profession">{spec.profession || 'GNA Member'}</div>
-                        </div>
-                      </div>
+                <div style={{ position: 'relative', zIndex: 1 }}>
+                  <div style={{
+                    width: '80px',
+                    height: '80px',
+                    borderRadius: '24px',
+                    background: '#F1F5F9',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    margin: '0 auto 32px',
+                    color: '#3A0F7E'
+                  }}>
+                    <Shield size={40} />
+                  </div>
 
-                      <div className="spec-card-info">
-                        <div className="spec-info-row"><MapPin size={14} color="#94A3B8" /> {spec.city}, {spec.country}</div>
-                        <div className="spec-info-row"><Shield size={14} color="#3A0F7E" /> GNA ID: <strong>{spec.gna_id}</strong></div>
-                      </div>
+                  <h3 style={{
+                    fontSize: '32px',
+                    fontWeight: 900,
+                    color: '#120A2B',
+                    marginBottom: '20px',
+                    letterSpacing: '-0.02em'
+                  }}>
+                    Registry Update in Progress
+                  </h3>
 
-                      <div className="spec-card-footer">
-                        <div className="spec-status-tag" style={{
-                          backgroundColor: spec.certification_status === 'active' ? '#ECFDF5' : '#FFF7ED',
-                          color: spec.certification_status === 'active' ? '#059669' : '#D97706',
-                        }}>
-                          {spec.certification_status === 'active' ? 'Active Certification' : (spec.certification_status || 'Member')}
-                        </div>
-                        <div style={{ fontSize: '13px', color: '#94A3B8', fontWeight: 500, display: 'flex', alignItems: 'center', gap: '4px' }}>
-                          <Calendar size={14} /> {spec.date_joined ? new Date(spec.date_joined).getFullYear() : '—'}
-                        </div>
-                      </div>
+                  <p style={{
+                    fontSize: '18px',
+                    color: '#64748B',
+                    maxWidth: '600px',
+                    margin: '0 auto 40px',
+                    lineHeight: 1.6,
+                    fontWeight: 500
+                  }}>
+                    We are currently conducting an extensive global certification and audit process for specialists, clinics, and educational centers.
+                    The official GNA registry is being synchronized with the 2026 International Standards.
+                  </p>
+
+                  <div style={{
+                    marginTop: '40px',
+                    paddingTop: '24px',
+                    borderTop: '1px solid #F1F5F9',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '12px'
+                  }}>
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '6px'
+                    }}>
+                      <span style={{
+                        width: '6px',
+                        height: '6px',
+                        background: '#C5A059',
+                        borderRadius: '50%',
+                        boxShadow: '0 0 10px rgba(197,160,89,0.5)'
+                      }} className="pulse-dot" />
+                      <span style={{
+                        fontSize: '10px',
+                        fontWeight: 900,
+                        color: '#C5A059',
+                        letterSpacing: '0.1em',
+                        textTransform: 'uppercase'
+                      }}>Live</span>
                     </div>
-                  ))}
+                    <span style={{
+                      fontSize: '10px',
+                      fontWeight: 700,
+                      color: '#94A3B8',
+                      letterSpacing: '0.2em',
+                      textTransform: 'uppercase'
+                    }}>
+                      Registry Verification Engine Active
+                    </span>
+                  </div>
                 </div>
-              )}
+              </div>
             </div>
           </section>
         </div>
@@ -423,6 +474,15 @@ export default function RegistryPage() {
             padding: 100px 40px;
             text-align: center;
             border: 2px dashed #E2E8F0;
+          }
+
+          @keyframes pulse {
+            0% { transform: scale(0.95); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(0.95); opacity: 0.5; }
+          }
+          .pulse-dot {
+            animation: pulse 2s infinite ease-in-out;
           }
 
           @media (max-width: 768px) {

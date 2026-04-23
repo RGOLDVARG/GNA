@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShieldCheck, Award, Building2, Globe, ArrowRight, Scale, BookOpen, Fingerprint, FileDown, Eye } from 'lucide-react';
 import Link from 'next/link';
@@ -129,6 +129,14 @@ export default function Resources() {
   const [activeTab, setActiveTab] = useState('ethics');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalTitle, setModalTitle] = useState('Institutional Inquiry');
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
   
   const activeData = content[activeTab as keyof typeof content];
 
@@ -155,23 +163,78 @@ export default function Resources() {
           </p>
         </div>
 
-        <div className="tabs-container">
+        <div style={isMobile ? {
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          gap: '10px',
+          marginBottom: '32px',
+        } : {
+          display: 'flex',
+          borderBottom: '1px solid #E2E8F0',
+          marginBottom: '80px',
+          width: '100%',
+          overflowX: 'auto',
+          scrollbarWidth: 'none',
+          padding: '0 20px',
+        }}>
           {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`tab-button ${activeTab === tab.id ? 'active' : ''}`}
+              style={isMobile ? {
+                padding: '14px 10px',
+                borderRadius: '14px',
+                fontSize: '11px',
+                fontWeight: 800,
+                background: activeTab === tab.id ? 'white' : '#F1F5F9',
+                color: activeTab === tab.id ? '#120A2B' : '#64748B',
+                border: activeTab === tab.id ? '1px solid #E2E8F0' : '1px solid transparent',
+                boxShadow: activeTab === tab.id ? '0 4px 12px rgba(0,0,0,0.06)' : 'none',
+                cursor: 'pointer',
+                display: 'flex',
+                flexDirection: 'column' as const,
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '6px',
+                textTransform: 'uppercase' as const,
+                letterSpacing: '0.04em',
+                lineHeight: 1.3,
+                textAlign: 'center' as const,
+              } : {
+                flex: 1,
+                minWidth: '200px',
+                padding: '32px 0',
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                fontSize: '15px',
+                fontWeight: 800,
+                color: activeTab === tab.id ? '#120A2B' : '#94A3B8',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '12px',
+                textTransform: 'uppercase' as const,
+                position: 'relative' as const,
+                whiteSpace: 'nowrap' as const,
+              }}
             >
-              <span className="tab-icon">{tab.icon}</span> <span className="tab-label">{tab.label}</span>
-              {activeTab === tab.id && <motion.div layoutId="activeTabIndicator" className="active-indicator" />}
+              <span>{tab.icon}</span>
+              <span>{tab.label}</span>
+              {!isMobile && activeTab === tab.id && (
+                <motion.div
+                  layoutId="activeTabIndicator"
+                  style={{ position: 'absolute', bottom: '-1px', left: '10%', right: '10%', height: '3px', background: '#C5A059', borderRadius: '2px' }}
+                />
+              )}
             </button>
           ))}
         </div>
 
         <AnimatePresence mode="wait">
-          <motion.div key={activeTab} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="content-grid">
+          <motion.div key={activeTab} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'minmax(0, 1.4fr) minmax(0, 1fr)', gap: isMobile ? '16px' : '32px', alignItems: 'stretch' }}>
             
-            <div className="featured-card">
+            <div style={{ background: activeData.featured.bg, borderRadius: isMobile ? '24px' : '40px', padding: isMobile ? '32px 20px' : '64px', color: 'white', display: 'flex', flexDirection: 'column', position: 'relative', overflow: 'hidden', boxShadow: '0 40px 80px rgba(18,10,43,0.15)', justifyContent: 'center' }}>
               <div className="featured-icon-bg"><Scale size={400} color={activeData.featured.iconColor} /></div>
               <div style={{ display: 'flex', gap: '12px', marginBottom: '48px', position: 'relative', zIndex: 1 }}>
                 <span style={{ fontSize: '10px', fontWeight: 900, border: '1px solid rgba(255,255,255,0.2)', padding: '6px 16px', borderRadius: '100px' }}>{activeData.featured.tag}</span>
@@ -186,17 +249,17 @@ export default function Resources() {
               </div>
             </div>
 
-            <div className="secondary-stack">
-              <div className="list-card-main">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+              <div style={{ background: 'white', borderRadius: '32px', padding: '40px', border: '1px solid #E2E8F0', boxShadow: '0 10px 30px rgba(0,0,0,0.02)', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                 <div style={{ display: 'flex', gap: '12px', marginBottom: '32px' }}><span style={{ fontSize: '10px', fontWeight: 900, color: '#C5A059', textTransform: 'uppercase' }}>{activeData.list[0].tag1}</span></div>
                 <h3 style={{ fontSize: '24px', color: '#1E1139', marginBottom: '16px', fontWeight: 900 }}>{activeData.list[0].title}</h3>
                 <p style={{ fontSize: '16px', color: '#64748B', marginBottom: '40px', lineHeight: 1.6 }}>{activeData.list[0].desc}</p>
-                <button onClick={() => handleAction(activeData.list[0])} className="list-btn">
+                <button onClick={() => handleAction(activeData.list[0])} style={{ background: '#120A2B', color: 'white', border: 'none', padding: '14px 24px', borderRadius: '12px', fontWeight: 800, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', width: 'fit-content', marginTop: '16px' }}>
                   {activeData.list[0].btnText} <ArrowRight size={16} />
                 </button>
               </div>
 
-              <div onClick={() => handleAction(activeData.list[1])} className="list-card-small">
+              <div onClick={() => handleAction(activeData.list[1])} style={{ background: 'white', borderRadius: '24px', padding: '24px 32px', border: '1px solid #E2E8F0', display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer' }}>
                 <div style={{ flex: 1, paddingRight: '20px' }}>
                   <div style={{ display: 'flex', gap: '12px', marginBottom: '12px' }}><span style={{ fontSize: '10px', fontWeight: 900, color: '#C5A059' }}>{activeData.list[1].tag1}</span></div>
                   <h4 style={{ fontSize: '20px', color: '#1E1139', fontWeight: 900 }}>{activeData.list[1].title}</h4>
@@ -279,19 +342,21 @@ export default function Resources() {
         }
         .content-grid {
           display: grid;
-          grid-template-columns: 1.2fr 1fr;
-          gap: 40px;
+          grid-template-columns: 1.4fr 1fr;
+          gap: 32px;
+          align-items: stretch;
         }
         .featured-card {
           background: ${activeData.featured.bg};
           border-radius: 40px;
-          padding: 80px;
+          padding: 64px;
           color: white;
           display: flex;
           flex-direction: column;
           position: relative;
           overflow: hidden;
-          box-shadow: 0 40px 80px rgba(18, 10, 43, 0.15);
+          box-shadow: 0 40px 80px rgba(18, 10, 43, 0.12);
+          justify-content: center;
         }
         .featured-icon-bg {
           position: absolute;
@@ -301,11 +366,12 @@ export default function Resources() {
           transform: rotate(-15deg);
         }
         .featured-title {
-          font-size: 42px;
+          font-size: 44px;
           color: white;
           margin-bottom: 24px;
           font-weight: 900;
           line-height: 1.1;
+          letter-spacing: -0.03em;
         }
         .featured-btn {
           background: white;
@@ -319,127 +385,79 @@ export default function Resources() {
           display: flex;
           align-items: center;
           gap: 12px;
+          width: fit-content;
         }
         .secondary-stack {
           display: flex;
           flex-direction: column;
-          gap: 32px;
+          gap: 24px;
         }
         .list-card-main {
           background: white;
-          border-radius: 40px;
-          padding: 48px;
+          border-radius: 32px;
+          padding: 40px;
           border: 1px solid #E2E8F0;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.02);
           flex: 1;
-          box-shadow: 0 20px 50px rgba(0,0,0,0.02);
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
         }
         .list-btn {
           background: #120A2B;
           color: white;
           border: none;
-          padding: 16px 32px;
+          padding: 14px 24px;
           border-radius: 12px;
           font-weight: 800;
           cursor: pointer;
           display: flex;
           align-items: center;
           gap: 8px;
+          width: fit-content;
+          margin-top: 16px;
         }
         .list-card-small {
           background: white;
-          border-radius: 32px;
-          padding: 32px 48px;
+          border-radius: 24px;
+          padding: 24px 32px;
           border: 1px solid #E2E8F0;
           display: flex;
           justify-content: space-between;
           align-items: center;
           cursor: pointer;
-          box-shadow: 0 10px 30px rgba(0,0,0,0.02);
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 991px) {
           .resources-section {
-            padding: 60px 0;
-          }
-          .resources-header {
-            margin-bottom: 40px;
-            text-align: center;
+            padding: 80px 0;
           }
           .resources-title {
-            font-size: 32px;
-            line-height: 1.1;
-          }
-          .resources-subtext {
-            font-size: 16px;
-            line-height: 1.5;
-            margin: 0 auto;
+            font-size: 36px;
           }
           .tabs-container {
-            background: transparent;
+            margin-bottom: 40px;
             padding: 0;
-            border: none;
-            margin-bottom: 32px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            width: 100%;
-          }
-          .tabs-container::-webkit-scrollbar {
-            display: none;
+            overflow-x: auto;
           }
           .tab-button {
-            padding: 16px 12px;
-            border-radius: 16px;
-            font-size: 12px;
-            background: #F1F5F9;
-            color: #64748B;
-            gap: 8px;
-            flex-direction: column;
-            text-align: center;
-            white-space: normal;
-            border: 1px solid transparent;
-          }
-          .tab-button.active {
-            background: white;
-            color: #120A2B;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
-            border: 1px solid #E2E8F0;
-          }
-          .active-indicator {
-            display: none;
-          }
-          .tab-label {
-            display: block;
-            line-height: 1.3;
+            min-width: 200px;
           }
           .content-grid {
             grid-template-columns: 1fr;
-            gap: 20px;
+            gap: 24px;
           }
           .featured-card {
-            padding: 40px 20px;
-            border-radius: 24px;
+            padding: 40px 24px;
           }
           .featured-title {
-            font-size: 26px;
-            margin-bottom: 12px;
-          }
-          .featured-btn {
-            width: 100%;
-            justify-content: center;
-            padding: 14px;
-            font-size: 14px;
-          }
-          .secondary-stack {
-            gap: 16px;
+            font-size: 32px;
           }
           .list-card-main {
-            padding: 32px 20px;
-            border-radius: 24px;
+            padding: 32px 24px;
           }
           .list-card-small {
-            padding: 16px 20px;
-            border-radius: 20px;
+            padding: 24px;
           }
         }
       `}</style>
