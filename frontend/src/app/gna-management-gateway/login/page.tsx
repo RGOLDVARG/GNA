@@ -50,7 +50,8 @@ export default function AdminLoginPage() {
             setError('Access Denied: This portal is for institutional staff only.');
         }
       } else {
-        setError(data.detail || 'Invalid administrative credentials');
+        const errorData = await res.json().catch(() => ({}));
+        setError(errorData.detail || 'Invalid administrative credentials');
       }
     } catch (err) {
       setError('Institutional gateway connection failed.');
