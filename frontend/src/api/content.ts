@@ -7,6 +7,7 @@ export interface NewsItem {
   category: 'RESEARCH' | 'ADVOCACY' | 'INNOVATION' | 'ASSOCIATION';
   content: string;
   image: string | null;
+  image_url?: string | null;
   published_at: string;
   updated_at: string;
 }

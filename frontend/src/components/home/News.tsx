@@ -60,7 +60,7 @@ export default function News() {
           {displayNews.map((item) => (
             <div key={item.id} className="news-card">
               <div className="news-image-container">
-                 <img src={item.image_url || item.image || ''} alt={item.title} className="news-image" />
+                 <img src={(item as any).image_url || (item as any).image || ''} alt={item.title} className="news-image" />
               </div>
               <div className="news-content">
                 <div className="news-meta">
