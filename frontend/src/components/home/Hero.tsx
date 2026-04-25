@@ -21,7 +21,7 @@ export default function Hero() {
             Be Inspired by Leading Experts in Neurodiversity
           </h1>
           <p className="hero-desc">
-            Defining the global gold standard for ADHD, Autism (ASD), and neuro-inclusive excellence. As the leading institutional body, we establish the definitive certification pathways for practitioners and clinics worldwide. Join us in shaping the future of clinical care through rigorous accreditation and professional authority.
+            Uniting the world’s elite specialists and clinics to establish the definitive new global standards for ADHD and Autism (ASD) certification. We define the benchmark for neuro-inclusive clinical excellence and professional quality worldwide.
           </p>
           <div className="hero-action">
             <Link href="/registry" className="hero-btn">
