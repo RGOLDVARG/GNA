@@ -4,54 +4,29 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import { Calendar, MapPin, Video, ArrowRight, Newspaper, Bell } from 'lucide-react';
 import Link from 'next/link';
-
-interface NewsItem {
-  id: number;
-  title: string;
-  category: string;
-  content: string;
-  image: string | null;
-  image_url?: string | null;
-  published_at: string;
-}
-
-interface EventItem {
-  id: number;
-  title: string;
-  description: string;
-  event_type: string;
-  start_date: string;
-  location: string;
-  image: string | null;
-}
+import { fetchNews, fetchEvents, NewsItem, EventItem } from '@/api/content';
 
 export default function NewsAndEventsPage() {
   const [news, setNews] = useState<NewsItem[]>([]);
   const [events, setEvents] = useState<EventItem[]>([]);
   const [loading, setLoading] = useState(true);
   
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || '';
-
   useEffect(() => {
-    const fetchData = async () => {
+    const loadData = async () => {
       try {
-        const [newsRes, eventsRes] = await Promise.all([
-          fetch(`${API_URL}/api/content/public/news/`),
-          fetch(`${API_URL}/api/content/public/events/`)
+        const [newsData, eventsData] = await Promise.all([
+          fetchNews(),
+          fetchEvents()
         ]);
-        
-        const newsData = await newsRes.json();
-        const eventsData = await eventsRes.json();
-        
-        setNews(Array.isArray(newsData) ? newsData : (newsData.results || []));
-        setEvents(Array.isArray(eventsData) ? eventsData : (eventsData.results || []));
+        setNews(newsData);
+        setEvents(eventsData);
       } catch (err) {
         console.error('Failed to fetch content', err);
       } finally {
         setLoading(false);
       }
     };
-    fetchData();
+    loadData();
   }, []);
 
   return (
@@ -77,25 +52,29 @@ export default function NewsAndEventsPage() {
                   <h2>Latest Insights</h2>
                </div>
 
-               {news.length === 0 && !loading && <div className="empty-state">No articles published yet.</div>}
-
-               <div className="articles-grid">
-                  {news.map(item => (
-                    <div key={item.id} className="news-article">
-                       {(item.image_url || item.image) && <img src={item.image_url || item.image || ''} alt={item.title} className="article-image" />}
-                       <div className="article-content">
-                          <div className="article-meta">
-                             {item.category} • {new Date(item.published_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
-                          </div>
-                          <h3 className="article-title">{item.title}</h3>
-                          <p className="article-excerpt">{item.content.substring(0, 200)}...</p>
-                          <Link href={`/news/${item.id}`} className="read-more-btn">
-                             Read Full Article <ArrowRight size={18} />
-                          </Link>
-                       </div>
-                    </div>
-                  ))}
-               </div>
+               {loading ? (
+                 <div className="empty-state">Loading latest insights...</div>
+               ) : news.length === 0 ? (
+                 <div className="empty-state">No articles published yet in the database.</div>
+               ) : (
+                 <div className="articles-grid">
+                    {news.map(item => (
+                      <div key={item.id} className="news-article">
+                         {(item.image_url || item.image) && <img src={item.image_url || item.image || ''} alt={item.title} className="article-image" />}
+                         <div className="article-content">
+                            <div className="article-meta">
+                               {item.category} • {new Date(item.published_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                            </div>
+                            <h3 className="article-title">{item.title}</h3>
+                            <p className="article-excerpt">{item.content.substring(0, 200)}...</p>
+                            <Link href={`/news/${item.id}`} className="read-more-btn">
+                               Read Full Article <ArrowRight size={18} />
+                            </Link>
+                         </div>
+                      </div>
+                    ))}
+                 </div>
+               )}
             </div>
 
             {/* Events Sidebar */}
@@ -107,6 +86,7 @@ export default function NewsAndEventsPage() {
                   </div>
 
                   <div className="events-list">
+                     {events.length === 0 && !loading && <div style={{ color: '#64748B', fontSize: '14px' }}>No upcoming events.</div>}
                      {events.map(ev => {
                         const date = new Date(ev.start_date);
                         return (

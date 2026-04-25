@@ -21,17 +21,20 @@ export default function NewsDetailPage() {
   const [article, setArticle] = useState<NewsItem | null>(null);
   const [loading, setLoading] = useState(true);
   
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || '';
-
   useEffect(() => {
-    fetch(`${API_URL}/api/content/public/news/${id}/`)
-      .then(res => res.json())
+    setLoading(true);
+    fetch(`/api/content/public/news/${id}/`)
+      .then(res => {
+        if (!res.ok) throw new Error('Article not found');
+        return res.json();
+      })
       .then(data => {
         setArticle(data);
         setLoading(false);
       })
       .catch(err => {
         console.error('Article fetch failed', err);
+        setArticle(null);
         setLoading(false);
       });
   }, [id]);

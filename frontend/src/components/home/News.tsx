@@ -15,34 +15,6 @@ export default function News() {
       .catch(err => console.error('Failed to fetch news', err));
   }, []);
 
-  // Fallback data if DB is empty
-  const displayNews = articles.length > 0 ? articles : [
-    {
-      id: 1,
-      category: 'Research',
-      published_at: '2026-04-08T10:00:00Z',
-      title: 'New Study: The Impact of Neuro-Inclusive Workplace Policies',
-      content: 'GNA-funded research project reveals a 40% increase in long-term retention for specialists in neuro-inclusive environments.',
-      image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80'
-    },
-    {
-      id: 2,
-      category: 'Advocacy',
-      published_at: '2026-04-02T10:00:00Z',
-      title: 'GNA Joins Global Neurodiversity Alliance',
-      content: 'A landmark partnership aims to create universally recognized accreditation for ADHD practitioners and educators.',
-      image: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80'
-    },
-    {
-      id: 3,
-      category: 'Innovation',
-      published_at: '2026-03-28T10:00:00Z',
-      title: 'Introducing GNA-Pulse™: AI-Driven Career Mapping',
-      content: 'The next generation of professional development is here, helping members identify skill gaps and certification pathways.',
-      image: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80'
-    }
-  ];
-
   return (
     <section className="news-section">
       <div className="container">
@@ -57,7 +29,11 @@ export default function News() {
         </div>
 
         <div className="news-grid">
-          {displayNews.map((item) => (
+          {articles.length === 0 ? (
+            <div style={{ gridColumn: '1/-1', textAlign: 'center', padding: '40px', color: '#64748B' }}>
+              No news articles found in the database.
+            </div>
+          ) : articles.map((item) => (
             <div key={item.id} className="news-card">
               <div className="news-image-container">
                  <img src={(item as any).image_url || (item as any).image || ''} alt={item.title} className="news-image" />
