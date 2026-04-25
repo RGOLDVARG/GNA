@@ -34,6 +34,12 @@ jobs:
             echo "Building and starting containers..."
             docker-compose up -d --build
             
+            echo "Waiting for backend to be ready..."
+            sleep 10
+            
+            echo "Resetting news content on production..."
+            docker-compose exec -T backend python reset_news.py
+            
             echo "Checking container status..."
             docker ps
             
