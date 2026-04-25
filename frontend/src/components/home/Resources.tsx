@@ -427,6 +427,16 @@ export default function Resources() {
           align-items: center;
           cursor: pointer;
         }
+        .list-card-small {
+          background: white;
+          border-radius: 24px;
+          padding: 24px 32px;
+          border: 1px solid #E2E8F0;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          cursor: pointer;
+        }
 
         @media (max-width: 991px) {
           .resources-section {
