@@ -21,7 +21,7 @@ export default function InquiryModal({ isOpen, onClose, type = 'GENERAL', title 
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
 
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || '';
 
   if (!isOpen) return null;
 

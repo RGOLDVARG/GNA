@@ -63,7 +63,7 @@ export default function RegistryPage() {
   const fetchSpecialists = useCallback(async () => {
     setLoading(true);
     try {
-      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || '';
       let url = `${API_URL}/api/registry/search-specialists/?q=${encodeURIComponent(query)}`;
       if (selectedCountry) url += `&country=${encodeURIComponent(selectedCountry.safeName)}`;
       if (selectedCity) url += `&city=${encodeURIComponent(selectedCity.value)}`;

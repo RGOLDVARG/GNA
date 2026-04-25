@@ -23,7 +23,7 @@ export default function RegisterPage() {
   const [selectedCountry, setSelectedCountry] = useState<any>(null);
   const [selectedCity, setSelectedCity] = useState<any>(null);
 
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || '';
 
   const countryOptions = useMemo(() => {
     return Country.getAllCountries().map((country) => ({

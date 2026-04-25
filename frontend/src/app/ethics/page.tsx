@@ -14,7 +14,7 @@ export default function EthicsPage() {
   const handleSignMandate = async () => {
     setIsSigning(true);
     try {
-      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || '';
       const res = await authenticatedFetch(`${API_URL}/api/update-profile/`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },

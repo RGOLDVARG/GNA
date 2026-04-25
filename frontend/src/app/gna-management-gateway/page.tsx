@@ -29,7 +29,7 @@ export default function AdminDashboard() {
   const [loading, setLoading] = useState(true);
   const [viewingInquiry, setViewingInquiry] = useState<any>(null);
   
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || '';
 
   useEffect(() => {
     if (!authLoading && (!user || !user.is_staff)) router.push('/gna-management-gateway/login');

@@ -21,7 +21,7 @@ export default function RecentSpecialists() {
   useEffect(() => {
     const fetchSpecialists = async () => {
       try {
-        const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+        const API_URL = process.env.NEXT_PUBLIC_API_URL || '';
         const res = await fetch(`${API_URL}/api/registry/`);
         if (res.ok) {
           const data = await res.json();

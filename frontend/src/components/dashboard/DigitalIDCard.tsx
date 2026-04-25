@@ -7,7 +7,7 @@ interface DigitalIDCardProps {
 }
 
 export default function DigitalIDCard({ user }: DigitalIDCardProps) {
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || '';
   
   return (
     <div style={cardContainerStyle}>

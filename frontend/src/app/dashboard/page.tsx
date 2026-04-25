@@ -15,7 +15,7 @@ const Select = dynamic(() => import('react-select'), { ssr: false });
 export default function DashboardPage() {
   const { user, loading, logout, authenticatedFetch } = useAuth();
   const router = useRouter();
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || '';
 
   const [activeTab, setActiveTab] = useState('overview');
   const [isMounted, setIsMounted] = useState(false);

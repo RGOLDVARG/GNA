@@ -21,7 +21,7 @@ export default function NewsDetailPage() {
   const [article, setArticle] = useState<NewsItem | null>(null);
   const [loading, setLoading] = useState(true);
   
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || '';
 
   useEffect(() => {
     fetch(`${API_URL}/api/content/public/news/${id}/`)

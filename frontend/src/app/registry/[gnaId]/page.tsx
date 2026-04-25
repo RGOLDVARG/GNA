@@ -18,7 +18,7 @@ export default function SpecialistProfilePage() {
   useEffect(() => {
     async function fetchProfile() {
       try {
-        const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+        const API_URL = process.env.NEXT_PUBLIC_API_URL || '';
         const res = await fetch(`${API_URL}/api/registry/profile/${gnaId}/`);
         if (res.ok) {
           const data = await res.json();
@@ -50,7 +50,7 @@ export default function SpecialistProfilePage() {
             <div style={profileCardStyle}>
               <div style={avatarWrapperStyle}>
                 <div style={avatarMainStyle}>
-                  {specialist.avatar ? <img src={specialist.avatar.startsWith('http') ? specialist.avatar : `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}${specialist.avatar}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="S" /> : <UserIcon size={56} color="#CBD5E1" />}
+                  {specialist.avatar ? <img src={specialist.avatar.startsWith('http') ? specialist.avatar : `${process.env.NEXT_PUBLIC_API_URL || ''}${specialist.avatar}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="S" /> : <UserIcon size={56} color="#CBD5E1" />}
                 </div>
                 {specialist.certification_status === 'active' && <div style={verifiedBadgeStyle}><CheckCircle2 size={32} color="white" fill="#00D1FF" /></div>}
               </div>
