@@ -7,14 +7,17 @@ export const metadata: Metadata = {
 };
 
 import { AuthProvider } from '@/context/AuthContext';
+import StyledJsxRegistry from './registry';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body suppressHydrationWarning>
-        <AuthProvider>
-          {children}
-        </AuthProvider>
+        <StyledJsxRegistry>
+          <AuthProvider>
+            {children}
+          </AuthProvider>
+        </StyledJsxRegistry>
       </body>
     </html>
   );
