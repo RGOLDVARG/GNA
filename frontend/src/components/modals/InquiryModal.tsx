@@ -128,9 +128,9 @@ export default function InquiryModal({ isOpen, onClose, type = 'GENERAL', title 
                 )}
               </button>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '12px', opacity: 0.6 }}>
+              <div className="modal-footer-note">
                 <ShieldCheck size={16} color="#059669" />
-                <span style={{ fontSize: '12px', fontWeight: 600 }}>Secure institutional encryption enabled. Your data is protected by GNA privacy standards.</span>
+                <span>Secure institutional encryption enabled. Your data is protected by GNA privacy standards.</span>
               </div>
             </form>
           </>
@@ -138,11 +138,67 @@ export default function InquiryModal({ isOpen, onClose, type = 'GENERAL', title 
       </div>
 
       <style jsx>{`
-        .input-group { display: flex; flexDirection: column; gap: 8px; }
-        .label-style { fontSize: 13px; fontWeight: 800; color: #120A2B; textTransform: uppercase; letterSpacing: 0.05em; }
-        .input-style { width: 100%; padding: 16px 20px; borderRadius: 16px; border: 1.5px solid #E2E8F0; background: #F8FAFC; fontSize: 16px; outline: none; transition: border-color 0.2s ease; }
+        .input-group { 
+          display: flex; 
+          flex-direction: column; 
+          gap: 8px; 
+          align-items: stretch;
+          width: 100%;
+        }
+        .label-style { 
+          font-size: 13px; 
+          font-weight: 800; 
+          color: #120A2B; 
+          text-transform: uppercase; 
+          letter-spacing: 0.05em;
+          display: block;
+          text-align: left;
+        }
+        .input-style { 
+          width: 100%; 
+          padding: 16px 20px; 
+          border-radius: 16px; 
+          border: 1.5px solid #E2E8F0; 
+          background: #F8FAFC; 
+          font-size: 16px; 
+          outline: none; 
+          transition: border-color 0.2s ease;
+          box-sizing: border-box;
+        }
         .input-style:focus { border-color: #120A2B; }
-        .modal-submit-btn { background: #120A2B; color: white; padding: 20px; borderRadius: 18px; border: none; fontWeight: 900; fontSize: 16px; cursor: pointer; display: flex; alignItems: center; justifyContent: center; gap: 12px; marginTop: 12px; }
+        .modal-submit-btn { 
+          background: #120A2B; 
+          color: white; 
+          padding: 20px; 
+          border-radius: 18px; 
+          border: none; 
+          font-weight: 900; 
+          font-size: 16px; 
+          cursor: pointer; 
+          display: flex; 
+          align-items: center; 
+          justify-content: center; 
+          gap: 12px; 
+          margin-top: 12px; 
+        }
+        .modal-footer-note {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          margin-top: 12px;
+          opacity: 0.6;
+          font-size: 12px;
+          font-weight: 600;
+        }
+        @media (max-width: 768px) {
+          .label-style {
+            font-size: 12px;
+          }
+          .modal-footer-note {
+            flex-direction: row;
+            align-items: flex-start;
+          }
+        }
       `}</style>
     </div>
   );
