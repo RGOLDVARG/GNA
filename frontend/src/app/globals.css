@@ -706,3 +706,68 @@ h1, h2, h3, h4 {
     padding: 24px;
   }
 }
+
+/* =========================================
+   INQUIRY MODAL (RESPONSIVE)
+   ========================================= */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(18, 10, 43, 0.85);
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  padding: 20px;
+}
+
+.modal-content {
+  background: white;
+  width: 100%;
+  max-width: 700px;
+  padding: 60px;
+  border-radius: 48px;
+  position: relative;
+  box-shadow: 0 50px 100px rgba(0,0,0,0.3);
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #120A2B;
+  z-index: 10;
+}
+
+.modal-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .modal-content {
+    padding: 40px 24px;
+    border-radius: 32px;
+  }
+  
+  .modal-close-btn {
+    top: 20px;
+    right: 20px;
+  }
+  
+  .modal-grid-2 {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .modal-title {
+    font-size: 28px !important;
+  }
+}
