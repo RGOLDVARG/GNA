@@ -21,7 +21,7 @@ export default function Hero() {
             Be Inspired by Leading Experts in Neurodiversity
           </h1>
           <p className="hero-desc">
-            Connect with the world’s foremost authorities in ADHD, Autism (ASD), and neuro-inclusion. At the Global Summit Series, we unite elite clinical psychologists and advocates to define the future of neurodiversity through rigorous standards and transformative professional excellence.
+            Defining the global gold standard for ADHD, Autism (ASD), and neuro-inclusive excellence. As the leading institutional body, we establish the definitive certification pathways for practitioners and clinics worldwide. Join us in shaping the future of clinical care through rigorous accreditation and professional authority.
           </p>
           <div className="hero-action">
             <Link href="/registry" className="hero-btn">
