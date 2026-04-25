@@ -39,7 +39,7 @@ export default function AboutPage() {
             <h2 className="section-title">Why We Established GNA®</h2>
             <div style={{ width: '60px', height: '4px', background: '#3A0F7E', marginBottom: '40px' }}></div>
             <p style={{ fontSize: '18px', lineHeight: 1.8, color: '#4A4A4A', marginBottom: '32px' }}>
-              GNA (Global Neurodiversity Authority) was founded as an independent non-profit institution in direct response to the global fragmentation of neurodiversity support. 
+              GNA (Global Neurodiversity Association) was founded as an independent non-profit institution in direct response to the global fragmentation of neurodiversity support. 
               While scientific understanding of cognitive profiles has accelerated, professional standards and accessibility have struggled to keep pace.
             </p>
             <p style={{ fontSize: '18px', lineHeight: 1.8, color: '#4A4A4A', marginBottom: '40px' }}>
@@ -63,7 +63,7 @@ export default function AboutPage() {
           <div className="mandate-card">
              <h3 style={{ fontSize: '24px', fontWeight: 900, marginBottom: '24px', color: '#120A2B' }}>Global Mandate</h3>
              <p style={{ color: '#64748B', lineHeight: 1.8, fontSize: '15px' }}>
-               Operating at the intersection of neuroscience and professional standards, GNA (Global Neurodiversity Authority) provides the framework for global accreditation.
+               Operating at the intersection of neuroscience and professional standards, GNA (Global Neurodiversity Association) provides the framework for global accreditation.
              </p>
              <div style={{ marginTop: '32px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
                 <div className="check-row"><CheckGold /> Clinical Integrity Protocols</div>

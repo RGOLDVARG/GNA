@@ -77,7 +77,7 @@ export default function Footer() {
                 <img src="/images/gna_logo.svg" alt="GNA" style={{ width: '180px', height: '50px', objectFit: 'contain', objectPosition: 'left' }} />
              </div>
              <p style={{ fontSize: '14px', color: '#64748B', lineHeight: 1.6, marginBottom: '24px' }}>
-               The Global Neurodiversity Authority is an independent non-profit institution and the leading international body for professional accreditation and standards.
+               The Global Neurodiversity Association is an independent non-profit institution and the leading international body for professional accreditation and standards.
              </p>
              <div style={{ display: 'flex', gap: '16px' }}>
                 <div style={socialIconStyle}><Globe size={18} /></div>
@@ -98,7 +98,7 @@ export default function Footer() {
             </div>
           </div>
           <div style={{ fontSize: '12px', color: '#94A3B8', fontWeight: 500 }}>
-             © 2026 GNA®. Global Neurodiversity Authority. All Rights Reserved.
+             © 2026 GNA®. Global Neurodiversity Association. All Rights Reserved.
           </div>
         </div>
       </div>
